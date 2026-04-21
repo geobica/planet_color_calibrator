@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1900.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1B00_1610.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1B00_1600.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/mess/v1/PDS4_MESS_1B00_1101.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+    xmlns:img="http://pds.nasa.gov/pds4/img/v1"
+    xmlns:mess="http://pds.nasa.gov/pds4/mission/mess/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd
+                        http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1900.xsd
+                        http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1B00_1610.xsd
+                        http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1B00_1600.xsd 
+                        http://pds.nasa.gov/pds4/mission/mess/v1 https://pds.nasa.gov/pds4/mission/mess/v1/PDS4_MESS_1B00_1101.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:messenger_mdis_2001:wac_cdr:cw0089565661f_ra_5</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>MESSENGER MDIS CDR WAC product</title>
+        <information_model_version>1.13.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Alias_List>
+            <Alias>
+                <alternate_id>CW0089565661F_RA_5.IMG</alternate_id>
+                <comment>Original filename at PDS3 archive, on-line at CIS Node</comment>
+            </Alias>
+            <Alias>
+                <alternate_id>CW0089565661F_RA_5</alternate_id>
+                <comment>PDS3 PRODUCT_ID</comment>
+            </Alias>
+        </Alias_List>
+        <Citation_Information>  
+            <author_list>Hawkins, S. E.; Boldt, J. D.; Darlington, E. H.; Espiritu, R.; Gold, R. E.; 
+                Gotwols, B.; Grey, M. P.; Hash, C. D.; Hayes, J. R.; Jaskulek, S. E.; 
+                Kardian, C. J.; Keller, M. R.; Malaret, E. R.; Murchie, S. L.; Murphy, P. 
+                K.; Peacock, K.; Prockter, L. M.; Reiter, R. A.; Robinson, M. S.; Schaefer, 
+                E. D.; Shelton, R. G.; Sterner, R. E.; Taylor, H. W.; Watters, T. R.; 
+                Williams, B. D.</author_list>
+            <publication_year>2007</publication_year>
+            <description>The Mercury Dual Imaging System on the MESSENGER 
+                Spacecraft. Space Science Reviews 131, 247-338.  
+                doi:10.1007/s11214-007-9266-3</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2018-03-07</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    This PDS4 labeled (detached) product (orig PDS3 image) is a result
+                    of development activity for MESSENGER MDIS CDR migration to PDS4.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2007-06-05T21:18:54.6439Z</start_date_time>
+            <stop_date_time>2007-06-05T21:18:54.7689Z</stop_date_time>
+            <local_mean_solar_time>174.40083</local_mean_solar_time><!-- LOCAL_HOUR_ANGLE -->
+        </Time_Coordinates>
+        <Investigation_Area>
+            <name>Product_Observational</name>
+            <type>Individual Investigation</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.messenger</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+                <comment>This is the PDS4 logical identifier for MESSENGER</comment>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Observing System for MDIS data</name>
+            <Observing_System_Component>
+                <name>Mercury Messenger</name>
+                <type>Spacecraft</type>
+                <description>The instrument host for this observing system was the Mercury Messenger spacecraft</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mess</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <!-- Single component here WAC -->
+            <Observing_System_Component>
+                <name>Mercury MDIS-WAC for MESSENGER</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:mdis-wac.mess</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Venus</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+
+        <Mission_Area></Mission_Area>
+
+        <Discipline_Area>
+            <disp:Display_Settings>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>Array_2D_Image</local_identifier_reference>
+                    <local_reference_type>display_settings_to_array</local_reference_type>
+                </Local_Internal_Reference>
+                <disp:Display_Direction>
+                    <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+                    <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+                    <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+                    <disp:vertical_display_direction>Top to Bottom</disp:vertical_display_direction>
+                </disp:Display_Direction>
+            </disp:Display_Settings>
+             
+            <img:Imaging>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>Array_2D_Image</local_identifier_reference>
+                    <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+                </Local_Internal_Reference>
+                <img:Exposure>  
+                        <img:exposure_duration unit="ms">125</img:exposure_duration><!-- EXPOSURE_DURATION -->
+                        <img:exposure_type>Auto</img:exposure_type><!-- EXPOSURE_TYPE -->
+                    </img:Exposure>
+
+                <img:Optical_Filter>  
+                        <img:filter_name>430 BW 40</img:filter_name>
+                        <img:bandwidth unit="nm">18.1</img:bandwidth> 
+                        <img:center_filter_wavelength unit="nm">433.2</img:center_filter_wavelength>
+                    </img:Optical_Filter>
+
+                <img:Instrument_State>  
+                    <img:Device_Temperatures>
+                        <img:Device_Temperature>
+                            <img:device_name>MERCURY DUAL IMAGING SYSTEM WIDE ANGLE
+                                CAMERA DETECTOR TEMPERATURE</img:device_name><!-- DETECTOR_TEMPERATURE -->
+                            <img:temperature_value unit="degC">-35.51</img:temperature_value>
+                        </img:Device_Temperature>
+                        <img:Device_Temperature>
+                            <img:device_name>MERCURY DUAL IMAGING SYSTEM WIDE ANGLE
+                                CAMERA FOCAL PLANE TEMPERATURE</img:device_name><!-- FOCAL_PLANE_TEMPERATURE -->
+                            <img:temperature_value unit="degC">-16.68</img:temperature_value>
+                        </img:Device_Temperature>
+                        
+                            <!-- OPTICS_TEMPERATURE -->
+                            
+                        
+                    </img:Device_Temperatures>
+
+                </img:Instrument_State>
+
+            </img:Imaging>
+            
+            <geom:Geometry>
+               <geom:Image_Display_Geometry>
+                   <geom:Display_Direction>
+                       <geom:horizontal_display_axis>Sample</geom:horizontal_display_axis>
+                       <geom:horizontal_display_direction>Left to Right</geom:horizontal_display_direction>
+                       <geom:vertical_display_axis>Line</geom:vertical_display_axis>
+                       <geom:vertical_display_direction>Top to Bottom</geom:vertical_display_direction>
+                   </geom:Display_Direction>
+                   
+                   <geom:Object_Orientation_North_East>
+                       <geom:north_azimuth unit="deg">222.58297</geom:north_azimuth><!-- NORTH_AZIMUTH -->
+                       <geom:east_azimuth unit="deg">312.58297</geom:east_azimuth><!-- (NORTH_AZIMUTH + 90) mod 360-->
+                       <geom:Reference_Frame_Identification>
+                           <geom:name>clockwise from right hand side</geom:name>
+                       </geom:Reference_Frame_Identification>
+                   </geom:Object_Orientation_North_East>
+                   
+                   <geom:Object_Orientation_RA_Dec>
+                       <geom:Reference_Pixel><!-- RA_DEC_REF_PIXEL (center) -->
+                           <geom:vertical_coordinate_pixel unit="pixel">512</geom:vertical_coordinate_pixel>
+                           <geom:horizontal_coordinate_pixel unit="pixel">512</geom:horizontal_coordinate_pixel>
+                       </geom:Reference_Pixel>
+                       <geom:reference_pixel_location>Center</geom:reference_pixel_location>
+                       <geom:right_ascension_angle unit="deg">181.28388</geom:right_ascension_angle><!-- RIGHT_ASCENSION -->
+                       <geom:declination_angle unit="deg">-21.14087</geom:declination_angle><!-- DECLINATION -->
+                       <geom:celestial_north_clock_angle unit="deg">337.890</geom:celestial_north_clock_angle> <!-- (180 - TWIST_ANGLE) -->
+                       <geom:Reference_Frame_Identification>
+                           <geom:name>J2000</geom:name>
+                       </geom:Reference_Frame_Identification>
+                   </geom:Object_Orientation_RA_Dec>
+                   
+                   <geom:Object_Orientation_RA_Dec><!-- reticle point right ascension and declination -->
+                       <geom:Reference_Pixel><!-- upper left reticle -->
+                           <geom:vertical_coordinate_pixel unit="pixel">1</geom:vertical_coordinate_pixel>
+                           <geom:horizontal_coordinate_pixel unit="pixel">1</geom:horizontal_coordinate_pixel>
+                       </geom:Reference_Pixel>
+                       <geom:reference_pixel_location>Center</geom:reference_pixel_location>
+                       <geom:right_ascension_angle unit="deg">184.23497</geom:right_ascension_angle><!-- RETICLE_POINT_RA [1] -->
+                       <geom:declination_angle unit="deg">-14.32946</geom:declination_angle><!-- RETICLE_POINT_DECLINATION [1]-->
+                       <geom:celestial_north_clock_angle unit="deg">337.890</geom:celestial_north_clock_angle> <!-- (180 - TWIST_ANGLE) -->
+                       <geom:Reference_Frame_Identification>
+                           <geom:name>J2000</geom:name>
+                       </geom:Reference_Frame_Identification>
+                   </geom:Object_Orientation_RA_Dec>
+                   
+                   <geom:Object_Orientation_RA_Dec><!-- reticle point right ascension and declination -->
+                       <geom:Reference_Pixel><!-- upper right reticle -->
+                           <geom:vertical_coordinate_pixel unit="pixel">1</geom:vertical_coordinate_pixel>
+                           <geom:horizontal_coordinate_pixel unit="pixel">512</geom:horizontal_coordinate_pixel>
+                       </geom:Reference_Pixel>
+                       <geom:reference_pixel_location>Center</geom:reference_pixel_location>
+                       <geom:right_ascension_angle unit="deg">174.12476</geom:right_ascension_angle><!-- RETICLE_POINT_RA [1] -->
+                       <geom:declination_angle unit="deg">-18.13019</geom:declination_angle><!-- RETICLE_POINT_DECLINATION [1]-->
+                       <geom:celestial_north_clock_angle unit="deg">337.890</geom:celestial_north_clock_angle> <!-- (180 - TWIST_ANGLE) -->
+                       <geom:Reference_Frame_Identification>
+                           <geom:name>J2000</geom:name>
+                       </geom:Reference_Frame_Identification>
+                   </geom:Object_Orientation_RA_Dec>
+                   
+                   <geom:Object_Orientation_RA_Dec><!-- reticle point right ascension and declination -->
+                       <geom:Reference_Pixel><!-- lower left reticle -->
+                           <geom:vertical_coordinate_pixel unit="pixel">512</geom:vertical_coordinate_pixel>
+                           <geom:horizontal_coordinate_pixel unit="pixel">1</geom:horizontal_coordinate_pixel>
+                       </geom:Reference_Pixel>
+                       <geom:reference_pixel_location>Center</geom:reference_pixel_location>
+                       <geom:right_ascension_angle unit="deg">188.70966</geom:right_ascension_angle><!-- RETICLE_POINT_RA [1] -->
+                       <geom:declination_angle unit="deg">-23.84956</geom:declination_angle><!-- RETICLE_POINT_DECLINATION [1]-->
+                       <geom:celestial_north_clock_angle unit="deg">337.890</geom:celestial_north_clock_angle> <!-- (180 - TWIST_ANGLE) -->
+                       <geom:Reference_Frame_Identification>
+                           <geom:name>J2000</geom:name>
+                       </geom:Reference_Frame_Identification>
+                   </geom:Object_Orientation_RA_Dec>
+                   
+                   <geom:Object_Orientation_RA_Dec><!-- reticle point right ascension and declination -->
+                       <geom:Reference_Pixel><!-- lower right reticle -->
+                           <geom:vertical_coordinate_pixel unit="pixel">512</geom:vertical_coordinate_pixel>
+                           <geom:horizontal_coordinate_pixel unit="pixel">512</geom:horizontal_coordinate_pixel>
+                       </geom:Reference_Pixel>
+                       <geom:reference_pixel_location>Center</geom:reference_pixel_location>
+                       <geom:right_ascension_angle unit="deg">178.03805</geom:right_ascension_angle><!-- RETICLE_POINT_RA [1] -->
+                       <geom:declination_angle unit="deg">-27.91644</geom:declination_angle><!-- RETICLE_POINT_DECLINATION [1]-->
+                       <geom:celestial_north_clock_angle unit="deg">337.890</geom:celestial_north_clock_angle> <!-- (180 - TWIST_ANGLE) -->
+                       <geom:Reference_Frame_Identification>
+                           <geom:name>J2000</geom:name>
+                       </geom:Reference_Frame_Identification>
+                   </geom:Object_Orientation_RA_Dec>
+                   
+  
+                   
+               </geom:Image_Display_Geometry>
+                <geom:Geometry_Orbiter>
+                    <geom:geometry_start_time_utc>2007-06-05T21:18:54.6439Z</geom:geometry_start_time_utc><!-- START_TIME -->
+                    <geom:geometry_stop_time_utc>2007-06-05T21:18:54.7689Z</geom:geometry_stop_time_utc><!-- STOP_TIME -->
+                    <geom:Pixel_Dimensions>
+                        <geom:pixel_field_of_view_method>Central Pixel</geom:pixel_field_of_view_method>
+                        <geom:Pixel_Size_Projected>
+                            <geom:reference_location>Boresight Intercept Point</geom:reference_location>
+                            <geom:horizontal_pixel_footprint unit="m">10871.36893</geom:horizontal_pixel_footprint><!-- HORIZONTAL_PIXEL_SCALE -->
+                            <geom:vertical_pixel_footprint unit="m">10871.36893</geom:vertical_pixel_footprint><!-- VERTICAL_PIXEL_SCALE -->
+                        </geom:Pixel_Size_Projected>
+                    </geom:Pixel_Dimensions>
+                    <geom:Distances>
+                        <geom:Distances_Specific>
+                            <geom:spacecraft_central_body_distance unit="km">66388.94702</geom:spacecraft_central_body_distance><!-- TARGET_CENTER_DISTANCE  -->
+                            <geom:spacecraft_target_boresight_intercept_distance unit="km">60686.44753</geom:spacecraft_target_boresight_intercept_distance><!-- SLANT_DISTANCE -->
+                            <geom:spacecraft_heliocentric_distance unit="km">107980226.00501</geom:spacecraft_heliocentric_distance><!-- SPACECRAFT_SOLAR_DISTANCE  -->
+                            <geom:target_heliocentric_distance unit="km">108039778.46016</geom:target_heliocentric_distance><!-- SOLAR_DISTANCE -->
+                        </geom:Distances_Specific>
+                    </geom:Distances>
+                    <geom:Surface_Geometry>
+                        <geom:Surface_Geometry_Specific>
+                           <geom:Pixel_Intercept>
+                                <geom:reference_pixel_location>Center</geom:reference_pixel_location>
+                                <geom:pixel_latitude unit="deg">3.90149</geom:pixel_latitude><!-- CENTER_LATITUDE -->
+                                <geom:pixel_longitude unit="deg">278.09410</geom:pixel_longitude><!-- CENTER_LONGITUDE -->
+                            </geom:Pixel_Intercept>
+                          <geom:subsolar_azimuth unit="deg">352.88788</geom:subsolar_azimuth><!-- SUB_SOLAR_AZIMUTH -->
+                            <geom:subsolar_latitude unit="deg">-1.29667</geom:subsolar_latitude><!-- SUB_SOLAR_LATITUDE -->
+                            <geom:subsolar_longitude unit="deg">283.69327</geom:subsolar_longitude><!-- SUB_SOLAR_LONGITUDE -->
+                            <geom:subspacecraft_azimuth unit="deg">183.48649</geom:subspacecraft_azimuth><!-- SUB_SPACECRAFT_AZIMUTH -->
+                            <geom:subspacecraft_latitude unit="deg">18.57591</geom:subspacecraft_latitude><!-- SUB_SPACECRAFT_LATITUDE -->
+                            <geom:subspacecraft_longitude unit="deg">266.29274</geom:subspacecraft_longitude><!-- SUB_SPACECRAFT_LONGITUDE -->
+                        </geom:Surface_Geometry_Specific>
+                    </geom:Surface_Geometry>
+                    
+                    <geom:Illumination_Geometry>
+                        <geom:Illumination_Specific>
+                            <geom:Reference_Pixel><!-- RA_DEC_REF_PIXEL -->
+                                <geom:vertical_coordinate_pixel unit="pixel">512</geom:vertical_coordinate_pixel>
+                                <geom:horizontal_coordinate_pixel unit="pixel">512</geom:horizontal_coordinate_pixel>
+                            </geom:Reference_Pixel>
+                            <geom:emission_angle unit="deg">20.49679</geom:emission_angle><!-- EMISSION_ANGLE -->
+                            <geom:incidence_angle unit="deg">7.63809</geom:incidence_angle><!-- INCIDENCE_ANGLE -->
+                            <geom:phase_angle unit="deg">28.04990</geom:phase_angle><!-- PHASE_ANGLE -->
+                        </geom:Illumination_Specific>
+                    </geom:Illumination_Geometry>
+
+                    <geom:Vectors>
+                        <geom:Vectors_Cartesian_Specific>
+                            <geom:Vector_Cartesian_Position_Spacecraft_To_Target><!-- SC_TARGET_POSITION_VECTOR -->
+                                <geom:x_position unit="km">62160.97555</geom:x_position>
+                                <geom:y_position unit="km">3304.65948</geom:y_position>
+                                <geom:z_position unit="km">23077.79517</geom:z_position>
+                                <geom:light_time_correction_applied>Received_Light_Time_Stellar_Abb</geom:light_time_correction_applied> 
+                            </geom:Vector_Cartesian_Position_Spacecraft_To_Target><!-- SC_SUN_POSITION_VECTOR -->
+                            <geom:Vector_Cartesian_Position_Sun_To_Spacecraft>
+                                <geom:x_position unit="km">-94898199.05364</geom:x_position>
+                                <geom:y_position unit="km">-48969725.97530</geom:y_position>
+                                <geom:z_position unit="km">-16000842.55197</geom:z_position>
+                                <geom:light_time_correction_applied>Received_Light_Time_Stellar_Abb</geom:light_time_correction_applied> 
+                            </geom:Vector_Cartesian_Position_Sun_To_Spacecraft>
+                            <geom:Vector_Cartesian_Velocity_Spacecraft_Relative_To_Sun><!-- SC_SUN_VELOCITY_VECTOR -->
+                                <geom:x_velocity unit="km/s">-7.86848</geom:x_velocity>
+                                <geom:y_velocity unit="km/s">29.42672</geom:y_velocity>
+                                <geom:z_velocity unit="km/s">17.51110</geom:z_velocity>
+                                <geom:light_time_correction_applied>Received_Light_Time_Stellar_Abb</geom:light_time_correction_applied> 
+                            </geom:Vector_Cartesian_Velocity_Spacecraft_Relative_To_Sun>
+                        </geom:Vectors_Cartesian_Specific>
+                    </geom:Vectors>
+                </geom:Geometry_Orbiter>
+            </geom:Geometry>
+            
+            <mess:MESSENGER>
+                <mess:mission_phase_name>Venus 2 Flyby</mess:mission_phase_name>
+                
+                <mess:spacecraft_clock_start_count>1/089565661:865</mess:spacecraft_clock_start_count>
+                <mess:spacecraft_clock_stop_count>1/089565661:990</mess:spacecraft_clock_stop_count>
+                <mess:standard_data_product_id>CW0089565661F_RA_5</mess:standard_data_product_id>
+                <mess:software_name>mdiscal</mess:software_name>
+                <mess:software_version_id>1.1</mess:software_version_id>
+                <mess:MDIS>
+                    <mess:aex_bacb>240</mess:aex_bacb>
+                    <mess:aex_maxe>500</mess:aex_maxe>
+                    <mess:aex_mine>1</mess:aex_mine>
+                    <mess:aex_stat>256</mess:aex_stat>
+                    <mess:aex_sthr>5</mess:aex_sthr>
+                    <mess:aex_tgtb>2800</mess:aex_tgtb>
+                    <mess:att_clock_count>89565659</mess:att_clock_count>
+                    <mess:att_flag>7</mess:att_flag>
+                    <mess:att_q1>0.78379846</mess:att_q1>
+                    <mess:att_q2>-0.37217641</mess:att_q2>
+                    <mess:att_q3>-0.43763739</mess:att_q3>
+                    <mess:att_q4>-0.23583506</mess:att_q4>
+                    <mess:cam_t1>491</mess:cam_t1>
+                    <mess:cam_t2>496</mess:cam_t2>
+                    <mess:ccd_temp>1041</mess:ccd_temp>
+                    <mess:comp12_8>0</mess:comp12_8>
+                    <mess:comp_alg>2</mess:comp_alg>
+                    <mess:comp_fst>1</mess:comp_fst>
+                    <mess:critopnv>0</mess:critopnv>
+                    <mess:dlnkprio>3</mess:dlnkprio>
+                    <mess:data_quality_id>"0000000000000000"</mess:data_quality_id> 
+                    <mess:dark_strip_mean>0.32988764593456</mess:dark_strip_mean> 
+                    <mess:dpu_id>0</mess:dpu_id>
+                    <mess:ec_factor>1.0</mess:ec_factor> 
+                    <mess:exp_mode>1</mess:exp_mode>
+                    <mess:exposure>125</mess:exposure>
+                    <mess:fpu_bin>0</mess:fpu_bin>
+                    <mess:fw_goal>55684</mess:fw_goal>
+                    <mess:fw_pos>55688</mess:fw_pos>
+                    <mess:fw_pv>1</mess:fw_pv>
+                    <mess:fw_read>55688</mess:fw_read>
+                    <mess:fw_rv>1</mess:fw_rv>
+                    <mess:imager>0</mess:imager>
+                    
+                    
+                    <mess:jailbars>0</mess:jailbars>
+                    <mess:jb_space>0</mess:jb_space>
+                    <mess:jb_x0>0</mess:jb_x0>
+                    <mess:jb_x1>0</mess:jb_x1>
+                    <mess:latch_up>0</mess:latch_up>
+                    <mess:met_exp>89565661</mess:met_exp>
+                    <mess:observation_id>"2946"</mess:observation_id> 
+
+                    <mess:piv_cal>-26758</mess:piv_cal>
+                    <mess:piv_goal>9102</mess:piv_goal>
+                    <mess:piv_mpen>1</mess:piv_mpen>
+                    <mess:piv_pos>9102</mess:piv_pos>
+                    
+                    <mess:piv_pv>1</mess:piv_pv>
+                    <mess:piv_read>13520</mess:piv_read>
+                    <mess:piv_rv>1</mess:piv_rv>
+                    <mess:piv_stat>3</mess:piv_stat>
+                    <mess:pixelbin>0</mess:pixelbin>
+                    <mess:saturated_pixel_count>0</mess:saturated_pixel_count>
+                    <mess:smear_azimuth>27.86414</mess:smear_azimuth><!-- unit="deg" --> 
+                    <mess:smear_magnitude>0.02874</mess:smear_magnitude><!-- unit="pixels" --> 
+                    <mess:source>0</mess:source>
+                    <mess:subf_dx1>0</mess:subf_dx1>
+                    <mess:subf_dx2>0</mess:subf_dx2>
+                    <mess:subf_dx3>0</mess:subf_dx3>
+                    <mess:subf_dx4>0</mess:subf_dx4>
+                    <mess:subf_dx5>0</mess:subf_dx5>
+                    <mess:subf_dy1>0</mess:subf_dy1>
+                    <mess:subf_dy2>0</mess:subf_dy2>
+                    <mess:subf_dy3>0</mess:subf_dy3>
+                    <mess:subf_dy4>0</mess:subf_dy4>
+                    <mess:subf_dy5>0</mess:subf_dy5>
+                    <mess:subframe>0</mess:subframe>
+                    <mess:subf_x1>4</mess:subf_x1>
+                    <mess:subf_x2>4</mess:subf_x2>
+                    <mess:subf_x3>0</mess:subf_x3>
+                    <mess:subf_x4>0</mess:subf_x4>
+                    <mess:subf_x5>0</mess:subf_x5>
+                    <mess:subf_y1>0</mess:subf_y1>
+                    <mess:subf_y2>0</mess:subf_y2>
+                    <mess:subf_y3>0</mess:subf_y3>
+                    <mess:subf_y4>0</mess:subf_y4>
+                    <mess:subf_y5>0</mess:subf_y5>
+                    <mess:time_pls>2</mess:time_pls>
+                    <mess:wvlratio>4</mess:wvlratio>
+                </mess:MDIS>
+            </mess:MESSENGER>
+        </Discipline_Area>
+    </Observation_Area>
+
+    <Reference_List>
+        <Source_Product_Internal>
+            <lidvid_reference>urn:nasa:pds:messenger_mdis_2001:wac_edr:ew0089565661f::1.0</lidvid_reference>
+            <reference_type>data_to_calibrated_source_product</reference_type>
+        </Source_Product_Internal>
+    </Reference_List>
+
+    <File_Area_Observational>
+        <File>
+            <file_name>CW0089565661F_RA_5.IMG</file_name>
+            <local_identifier>DATA_FILE</local_identifier>
+            <creation_date_time>2019-11-04T05:56:15.9780Z</creation_date_time>
+            <file_size unit="byte">4206592</file_size>
+            <md5_checksum>73df180fb75ac94d4e7d6ef3330989f9</md5_checksum>
+            <comment>Mercury MDIS for MESSENGER CDR product.</comment>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">12288</object_length>
+            <parsing_standard_id>PDS3</parsing_standard_id>
+            <description>PDS3 attached header</description>
+        </Header>
+        <Array_2D_Image>
+            <local_identifier>Array_2D_Image</local_identifier>
+            <offset unit="byte">12288</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+                <unit>W / (m**2 micrometer sr)</unit>
+                <scaling_factor>1.0</scaling_factor>
+                <value_offset>0.0</value_offset>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>1024</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>1024</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+			
+            <Special_Constants>
+                <missing_constant>16#FF7FFFFB#</missing_constant> 
+                <high_instrument_saturation>16#FF7FFFFE#</high_instrument_saturation>
+                <high_representation_saturation>16#FF7FFFFF#</high_representation_saturation>
+                <low_instrument_saturation>16#FF7FFFFD#</low_instrument_saturation>
+                <low_representation_saturation>16#FF7FFFFC#</low_representation_saturation>
+            </Special_Constants>
+<!--            <Object_Statistics>
+                <maximum>824.81433105469</maximum> 
+                <minimum>-0.11533030867577</minimum> 
+                <mean>369.52547156397</mean>
+                <standard_deviation>266.78459243831</standard_deviation> 
+            </Object_Statistics>  -->
+        </Array_2D_Image>
+    </File_Area_Observational>
+    
+</Product_Observational>

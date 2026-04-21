@@ -1,0 +1,23 @@
+PDS_VERSION_ID                 = PDS3                                 
+                                                                      
+RECORD_TYPE                    = UNDEFINED                            
+SOURCE_PRODUCT_ID              = "V2946_0031_N22.IMG"                 
+RELEASE_ID                     = 0006                                 
+REVISION_ID                    = 0000                                 
+                                                                      
+^BROWSE_IMAGE                  = "V2946_0031_N22.JPG"                 
+  PRODUCT_ID                   = "V2946_0031_N22.JPG"                 
+  DATA_SET_ID                  = "VEX-V-VMC-3-RDR-EXT4-V1.0"          
+  INSTRUMENT_ID                = VMC                                  
+  INSTRUMENT_HOST_ID           = VEX                                  
+  PRODUCT_CREATION_TIME        = 2014-08-28T08:04:50.000Z             
+                                                                      
+OBJECT                         = BROWSE_IMAGE                         
+  ENCODING_TYPE                = JPEG                                 
+  LINES                        = 128                                  
+  LINE_SAMPLES                 = 128                                  
+  SAMPLE_TYPE                  = UNSIGNED_INTEGER                     
+  SAMPLE_BITS                  = 8                                    
+END_OBJECT                     = BROWSE_IMAGE                         
+                                                                      
+END                                                                   

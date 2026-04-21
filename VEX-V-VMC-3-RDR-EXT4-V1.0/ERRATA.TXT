@@ -1,0 +1,22 @@
+PDS_VERSION_ID                = PDS3                                          
+RECORD_TYPE                   = STREAM                                        
+OBJECT                        = TEXT                                          
+  PUBLICATION_DATE            = 2008-03-17                                    
+  NOTE                        = "Errata for the Venus Express                 
+                                 Venus Monitoring Camera Experiment           
+                                 Data Set"                                    
+END_OBJECT                    = TEXT                                          
+END                                                                           
+                                                                              
+The following values are used for N/A and UNK in the image labels             
+(as described in chapter 17 of the PDS standards reference):                  
+                                                                              
+                     Signed Integer (4 byte)                     Real         
+                                                                              
+N/A                     -2147483648                            -1.E32         
+                                                                              
+UNK                     2147483647                            1.E332          
+                                                                              
+This definition is in the PDS standard but some guys at PDS require the       
+use of UNK and N/A in the image labels. These guys required this              
+ERRATA.TXT file during the review process.                                    

@@ -1,0 +1,49 @@
+PDS_VERSION_ID               = PDS3                                   
+LABEL_REVISION_NOTE          = "2006-12-01, TR"                       
+RECORD_TYPE                    = FIXED_LENGTH                         
+RECORD_BYTES                   = 72                                   
+RELEASE_ID                     = 0001                                 
+REVISION_ID                    = 0000                                 
+                                                                      
+OBJECT                       = VOLUME                                 
+                                                                      
+  VOLUME_SERIES_NAME         = "MISSION TO VENUS"                     
+                                                                      
+  VOLUME_SET_NAME            = "VENUS EXPRESS VMC DATA PRODUCTS"      
+  VOLUME_SET_ID              = "DE_DLR_PF_VEXVMC_2000"                
+  VOLUMES                    = "UNK"                                  
+  VOLUME_ID                  = "VEXVMC_5001"                          
+  VOLUME_VERSION_ID          = "VERSION 1"                            
+  VOLUME_NAME                = "VEX VMC RDR EXT4 ARCHIVES"            
+  MEDIUM_TYPE                = "ELECTRONIC"                           
+  VOLUME_FORMAT               = "N/A"                                 
+  PUBLICATION_DATE           = 2013-07-05                             
+  DATA_SET_ID                = "VEX-V-VMC-3-RDR-EXT4-V1.0"            
+  DESCRIPTION                = "Venus Express VMC data"               
+                                                                      
+  OBJECT                     = DATA_PRODUCER                          
+   INSTITUTION_NAME          = "DLR"                                  
+   FACILITY_NAME             = "Institut fuer Planetenforschung"      
+   FULL_NAME                 = "Deutsches Zentrum fuer Luft und       
+                                Raumfahrt(DLR),                       
+                                Institut fuer Planetenforschung"      
+   DISCIPLINE_NAME           = "N/A"                                  
+   ADDRESS_TEXT              = "Rutherfordstrasse 2, 12489 Berlin,    
+                                Germany"                              
+  END_OBJECT                 = DATA_PRODUCER                          
+                                                                      
+  OBJECT                     = CATALOG                                
+    ^MISSION_CATALOG         = "MISSION.CAT"                          
+    ^INSTRUMENT_HOST_CATALOG = "INSTHOST.CAT"                         
+    ^INSTRUMENT_CATALOG      = "INST.CAT"                             
+    ^REFERENCE_CATALOG       = "REF.CAT"                              
+    ^DATA_SET_RELEASE_CATALOG = "RELEASE.CAT"                         
+    ^TARGET_CATALOG          = "TARGET.CAT"                           
+    ^SOFTWARE_CATALOG        = "SOFT.CAT"                             
+    ^PERSONNEL_CATALOG       = "PERSON.CAT"                           
+    ^DATA_SET_CATALOG        = "DATASET.CAT"                          
+  END_OBJECT          = CATALOG                                       
+                                                                      
+END_OBJECT          = VOLUME                                          
+                                                                      
+END                                                                   
