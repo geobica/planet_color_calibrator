@@ -339,21 +339,29 @@ solar_flux_interpolated = averaged_interp(
 )
 
 
-perezhoyos_interpolated = averaged_interp(
-    perezhoyos_spectrum[:, 0], perezhoyos_spectrum[:, 1], lam
-)
+kuiper_interpolated = all_spectra["Venus_Kuiper_1969b"].get_reflectance().interp(lam)
 
-pellier_interpolated = averaged_interp(
-    all_spectra["christophe_pellier_reflectance"][0], all_spectra["christophe_pellier_reflectance"][1], lam
-)
+perezhoyos_interpolated = all_spectra["Venus_PerezHoyos2018"].get_reflectance().interp(lam)
 
-selsis_interpolated = averaged_interp(
-    all_spectra["Selsis et al., 2008"][0], all_spectra["Selsis et al., 2008"][1], lam
-)/solar_flux_interpolated
+pellier_interpolated = all_spectra["christophe_pellier_reflectance"].get_reflectance().interp(lam)
 
-venus_reflectance_spectra = {"PerezHoyos":perezhoyos_interpolated,
+selsis_interpolated = all_spectra["Selsis et al., 2008"].get_reflectance().interp(lam)
+
+vpl_interpolated = all_spectra["VPL Venus Flux"].get_reflectance().interp(lam)
+
+venus_reflectance_spectra = {"Kuiper":kuiper_interpolated,
+                            "PerezHoyos":perezhoyos_interpolated,
                             "Pellier":pellier_interpolated,
-                            "Selsis":selsis_interpolated}
+                            "Selsis":selsis_interpolated,
+                            "VPL":vpl_interpolated}
+
+txtU_names = {"Venus_Kuiper_1969b":"Venus_Kuiper1969.txtU",
+                "Venus_PerezHoyos2018":"Venus_PerezHoyos2018.txtU",
+                "christophe_pellier_reflectance":"Venus_Pellier2020.txtU",
+                "Selsis et al., 2008":"Venus_Selsis2008.txtU",
+                "VPL Venus Flux":"Venus_VPL.txtU"}
+for all_spectra_key in txtU_names:
+    all_spectra[all_spectra_key].get_reflectance().save_txtU(f"for_TCT/{txtU_names[all_spectra_key]}.txtU")
 
 for venus_reference_spectrum_key in venus_reflectance_spectra:
     # this is a reflectance spectrum
