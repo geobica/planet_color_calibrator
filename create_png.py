@@ -349,7 +349,7 @@ pellier_interpolated = averaged_interp(
 
 selsis_interpolated = averaged_interp(
     all_spectra["Selsis et al., 2008"][0], all_spectra["Selsis et al., 2008"][1], lam
-)
+)/solar_flux_interpolated
 
 venus_reflectance_spectra = {"PerezHoyos":perezhoyos_interpolated,
                             "Pellier":pellier_interpolated,
