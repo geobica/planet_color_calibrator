@@ -377,7 +377,7 @@ txtU_names = {
 }
 for all_spectra_key in txtU_names:
     all_spectra[all_spectra_key].get_reflectance().save_txtU(
-        f"for_TCT/{txtU_names[all_spectra_key]}"
+        f"for_TCT/{txtU_names[all_spectra_key]}",peak_albedo=0.937528797
     )
 
 for venus_reference_spectrum_key in venus_reflectance_spectra:

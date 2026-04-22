@@ -17,8 +17,11 @@ SunSpectrum = None
 
 class Spectrum:
     def __init__(self,lam:np.ndarray,arr:np.ndarray,type:str,body:str):
-        self.lam = lam
-        self.arr = arr
+        self.lam = np.array(lam)
+        self.arr = np.array(arr)
+        idx_order = np.argsort(self.lam)
+        self.lam = self.lam[idx_order]
+        self.arr = self.arr[idx_order]
         self.type = type # "Intensity" or "Reflectance"
         self.body = body
 
@@ -57,9 +60,12 @@ class Spectrum:
             plt.legend()
             plt.show()
 
-    def save_txtU(self,filename:str):
+    def save_txtU(self,filename:str,peak_albedo:float=None):
         with open(filename,"w") as f:
-            f.write("\n".join([f"{self.lam[i]/1000}  {self.arr[i]}" for i in range(len(self.lam))]))
+            if peak_albedo is not None:
+                f.write("\n".join([f"{self.lam[i]/1000}  {self.arr[i]*peak_albedo/np.max(averaged_interp(self.lam,self.arr,np.linspace(300,700,num=50)))}" for i in range(len(self.lam))]))
+            else:
+                f.write("\n".join([f"{self.lam[i]/1000}  {self.arr[i]}" for i in range(len(self.lam))]))
 
 
 SunSpectrum = Spectrum(data['wavelength']/10,data['flux'],"Intensity","Sun")
