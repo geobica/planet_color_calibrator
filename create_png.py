@@ -14,6 +14,7 @@ from get_spectra import all_spectra
 import os
 from utils import parse_tag, IMG_to_npy, averaged_interp
 
+
 def autoalign(channel_list):
     # a not very good function to automatically line up the curves of the planets because I was too lazy to do it myself
     # it translates and uniformally scales then
@@ -274,7 +275,7 @@ def true_color(channels, reference_spectrum):
 with open("Venus_PerezHoyos2018.txtU", "r") as f:
     perezhoyos_spectrum = np.array(
         [
-            np.array([float(line.split(" ")[0])*1000, float(line.split(" ")[2])])
+            np.array([float(line.split(" ")[0]) * 1000, float(line.split(" ")[2])])
             for line in f.readlines()
         ]
     )
@@ -291,10 +292,12 @@ for filename in messenger_files:
     ]
     messenger_channels.append(
         Channel(
-            np.maximum(0,IMG_to_npy(f"MESSENGER/{filename}.IMG")-9),
+            np.maximum(0, IMG_to_npy(f"MESSENGER/{filename}.IMG") - 9),
             [
-                float(tag_data["center_filter_wavelength"]) - float(tag_data["bandwidth"]) / 2,
-                float(tag_data["center_filter_wavelength"]) + float(tag_data["bandwidth"]) / 2,
+                float(tag_data["center_filter_wavelength"])
+                - float(tag_data["bandwidth"]) / 2,
+                float(tag_data["center_filter_wavelength"])
+                + float(tag_data["bandwidth"]) / 2,
             ],
         )
     )
@@ -304,25 +307,29 @@ for filename in messenger_files:
 
 venus_express_channels = [
     Channel(
-        load_IMG("VEX-V-VMC-3-RDR-EXT4-V1.0/DATA/2946/V2946_0032_UV2.IMG"),
+        load_IMG("VEX_2/V0942_0004_UV2.IMG"),
         [365 - 40 / 2, 365 + 40 / 2],
     ),
     Channel(
-        load_IMG("VEX-V-VMC-3-RDR-EXT4-V1.0/DATA/2946/V2946_0033_VI2.IMG"),
+        load_IMG("VEX_2/V0942_0005_VI2.IMG"),
         [513 - 20 / 2, 513 + 20 / 2],
     ),
     Channel(
-        load_IMG("VEX-V-VMC-3-RDR-EXT4-V1.0/DATA/2946/V2946_0031_N22.IMG"),
+        load_IMG("VEX_2/V0942_0006_N12.IMG"),
         [935 - 70 / 2, 935 + 70 / 2],
     ),
 ]
 
 venus_express_channels = autoalign(venus_express_channels)
 
-ZERO_THRESHOLD = 20 # any values below this will just be set to zero, to clean out noise
+ZERO_THRESHOLD = (
+    20  # any values below this will just be set to zero, to clean out noise
+)
 for chan_i in range(len(venus_express_channels)):
     # venus_express_channels[chan_i].arr[venus_express_channels[chan_i].arr<ZERO_THRESHOLD] = 0
-    venus_express_channels[chan_i].arr = np.maximum(0,venus_express_channels[chan_i].arr-ZERO_THRESHOLD)
+    venus_express_channels[chan_i].arr = np.maximum(
+        0, venus_express_channels[chan_i].arr - ZERO_THRESHOLD
+    )
 
 
 # The wavelengths in nm to use for the interpolation
@@ -341,31 +348,44 @@ solar_flux_interpolated = averaged_interp(
 
 kuiper_interpolated = all_spectra["Venus_Kuiper_1969b"].get_reflectance().interp(lam)
 
-perezhoyos_interpolated = all_spectra["Venus_PerezHoyos2018"].get_reflectance().interp(lam)
+perezhoyos_interpolated = (
+    all_spectra["Venus_PerezHoyos2018"].get_reflectance().interp(lam)
+)
 
-pellier_interpolated = all_spectra["christophe_pellier_reflectance"].get_reflectance().interp(lam)
+pellier_interpolated = (
+    all_spectra["christophe_pellier_reflectance"].get_reflectance().interp(lam)
+)
 
 selsis_interpolated = all_spectra["Selsis et al., 2008"].get_reflectance().interp(lam)
 
 vpl_interpolated = all_spectra["VPL Venus Flux"].get_reflectance().interp(lam)
 
-venus_reflectance_spectra = {"Kuiper":kuiper_interpolated,
-                            "PerezHoyos":perezhoyos_interpolated,
-                            "Pellier":pellier_interpolated,
-                            "Selsis":selsis_interpolated,
-                            "VPL":vpl_interpolated}
+venus_reflectance_spectra = {
+    "Kuiper": kuiper_interpolated,
+    "PerezHoyos": perezhoyos_interpolated,
+    "Pellier": pellier_interpolated,
+    "Selsis": selsis_interpolated,
+    "VPL": vpl_interpolated,
+}
 
-txtU_names = {"Venus_Kuiper_1969b":"Venus_Kuiper1969.txtU",
-                "Venus_PerezHoyos2018":"Venus_PerezHoyos2018.txtU",
-                "christophe_pellier_reflectance":"Venus_Pellier2020.txtU",
-                "Selsis et al., 2008":"Venus_Selsis2008.txtU",
-                "VPL Venus Flux":"Venus_VPL.txtU"}
+txtU_names = {
+    "Venus_Kuiper_1969b": "Venus_Kuiper1969.txtU",
+    "Venus_PerezHoyos2018": "Venus_PerezHoyos2018.txtU",
+    "christophe_pellier_reflectance": "Venus_Pellier2020.txtU",
+    "Selsis et al., 2008": "Venus_Selsis2008.txtU",
+    "VPL Venus Flux": "Venus_VPL.txtU",
+}
 for all_spectra_key in txtU_names:
-    all_spectra[all_spectra_key].get_reflectance().save_txtU(f"for_TCT/{txtU_names[all_spectra_key]}.txtU")
+    all_spectra[all_spectra_key].get_reflectance().save_txtU(
+        f"for_TCT/{txtU_names[all_spectra_key]}"
+    )
 
 for venus_reference_spectrum_key in venus_reflectance_spectra:
     # this is a reflectance spectrum
-    venus_reference_spectrum_set = [lam, venus_reflectance_spectra[venus_reference_spectrum_key]]
+    venus_reference_spectrum_set = [
+        lam,
+        venus_reflectance_spectra[venus_reference_spectrum_key],
+    ]
 
     as_rgb = true_color(venus_express_channels, venus_reference_spectrum_set)
     Image.fromarray(as_rgb).save(f"venus_vex_{venus_reference_spectrum_key}.png")

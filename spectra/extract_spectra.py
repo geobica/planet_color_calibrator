@@ -26,6 +26,8 @@ class Spectrum:
         global SunSpectrum
         if self.type == "Intensity":
             return Spectrum(self.lam,self.arr/averaged_interp(SunSpectrum.lam,SunSpectrum.arr,self.lam),"Reflectance",self.body)
+        elif self.type == "Photon":
+            return Spectrum(self.lam,self.arr/self.lam/averaged_interp(SunSpectrum.lam,SunSpectrum.arr,self.lam),"Reflectance",self.body)
         else:
             return self
 
@@ -33,6 +35,10 @@ class Spectrum:
         global SunSpectrum
         if self.type == "Reflectance":
             return Spectrum(self.lam,self.arr*averaged_interp(SunSpectrum.lam,SunSpectrum.arr,self.lam),"Intensity",self.body)
+        elif self.type == "Photon":
+            # photons have energy inversely proportional to wavelength
+            # intensity is measured in W/μm/m^2/sr, photon count is photons/μm/m^2/sr
+            return Spectrum(self.lam,self.arr/self.lam,"Intensity",self.body)
         else:
             return self
 
@@ -53,7 +59,7 @@ class Spectrum:
 
     def save_txtU(self,filename:str):
         with open(filename,"w") as f:
-            f.write("\n".join([f"{self.lam[i]}  {self.arr[i]}" for i in range(len(self.lam))]))
+            f.write("\n".join([f"{self.lam[i]/1000}  {self.arr[i]}" for i in range(len(self.lam))]))
 
 
 SunSpectrum = Spectrum(data['wavelength']/10,data['flux'],"Intensity","Sun")

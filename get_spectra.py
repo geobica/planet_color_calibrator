@@ -125,7 +125,7 @@ all_spectra["christophe_pellier_reflectance"] = find_red_pixel_averages("spectra
 #all_spectra["christophe_pellier_reflectance"] = [all_spectra["christophe_pellier_reflectance"][0],all_spectra["christophe_pellier_reflectance"][1]*
 #    averaged_interp(all_spectra["Sunlight in Space"][0],all_spectra["Sunlight in Space"][1],all_spectra["christophe_pellier_reflectance"][0])]
 
-all_spectra["Selsis et al., 2008"] = find_red_pixel_averages("spectra/selsis.png", "Intensity", "Venus")
+all_spectra["Selsis et al., 2008"] = find_red_pixel_averages("spectra/selsis.png", "Photon", "Venus")
 #all_spectra["Selsis et al., 2008"] = [all_spectra["Selsis et al., 2008"][0],all_spectra["Selsis et al., 2008"][1]*
 #    averaged_interp(all_spectra["Sunlight in Space"][0],all_spectra["Sunlight in Space"][1],all_spectra["Selsis et al., 2008"][0])]
 
