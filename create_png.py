@@ -1,4 +1,11 @@
+import random
+
 import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+import numpy as np
+import scipy
 from scipy.constants import h, c, k
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
@@ -10,7 +17,7 @@ from colour import CCS_ILLUMINANTS
 import pandas as pd
 from scipy.ndimage import zoom as nd_zoom
 from astropy.io import fits
-from get_spectra import all_spectra
+from get_spectra import all_spectra, Spectrum
 import os
 from utils import parse_tag, IMG_to_npy, averaged_interp
 
@@ -129,6 +136,11 @@ def load_IMG(path):
     return img
 
 
+def load_PNG(path):
+    img = np.maximum(0,np.asarray(Image.open(path).convert("L")).astype(float)-1)
+    return img
+
+
 def create_ciexyz_data_by_lam_i(lam):
     cs = cs_hdtv
 
@@ -139,8 +151,6 @@ def create_ciexyz_data_by_lam_i(lam):
                 for line in "".join(f.readlines()).split("\n")
             ]
         )
-
-    fig, ax = plt.subplots()
 
     ciexyz_data_by_lam_i = np.zeros((lam.shape[0], 3))
 
@@ -163,7 +173,7 @@ def spectrum_arr_to_xyz(spectrum, ciexyz_data_by_lam_i):
     return np.sum(ciexyz_data_by_lam_i[None, :, :] * spectrum[:, :, None], axis=1)
 
 
-def true_color(channels, reference_spectrum):
+def true_color(channels, reference_spectrum, type="reflectance"):
     def piecewise_from_λ_J_arr(λ_all, λ_set, J_arr):
         J_arr = np.maximum(J_arr, 0)
         piecewise_out = np.zeros((len(J_arr), len(λ_all)))
@@ -232,41 +242,32 @@ def true_color(channels, reference_spectrum):
 
     # to make sure it has the same average spectrum across the full disk as the reference given
     modified_spec = modified_spec / np.mean(piecewise, axis=0)
-    # this modified_spec is what to use to turn into XYZ
-    if False:
-        plt.plot(
-            reference_spectrum[0], reference_spectrum[1], label="reference spectrum"
-        )
-        for i in range(100):
-            label_use = None if i > 0 else "random modified spectra"
-            plt.plot(
-                reference_spectrum[0],
-                modified_spec[i * int(len(modified_spec) / 105)],
-                color="orange",
-                label=label_use,
-            )
-        plt.title("random modified_spec")
-        plt.legend()
-        plt.xlabel("wavelength [nm]")
-        plt.show()
 
     as_xyz = spectrum_arr_to_xyz(
         modified_spec, create_ciexyz_data_by_lam_i(reference_spectrum[0])
     )
 
-    # Illuminant E is used because it was converted back to a reflectance spectrum
-    as_rgb = np.maximum(
-        0,
-        colour.XYZ_to_sRGB(
-            as_xyz,
-            illuminant=CCS_ILLUMINANTS["CIE 1931 2 Degree Standard Observer"]["E"],
-        ),
-    )
+    if type=="reflectance":
+        # Illuminant E is used because it was converted back to a reflectance spectrum
+        as_rgb = np.maximum(
+            0,
+            colour.XYZ_to_sRGB(
+                as_xyz,
+                illuminant=CCS_ILLUMINANTS["CIE 1931 2 Degree Standard Observer"]["E"],
+            ),
+        )
+    elif type=="D65":
+        as_rgb = np.maximum(
+            0,
+            colour.XYZ_to_sRGB(
+                as_xyz,
+            ),
+        )
     as_rgb = np.reshape(as_rgb, (channels[0].arr.shape[0], channels[0].arr.shape[1], 3))
 
-    return (as_rgb / np.max(as_rgb) * 255).astype("uint8")
+    return (as_rgb / np.max(as_rgb) * 243).astype("uint8")
     plt.title("as_rgb")
-    plt.imshow((as_rgb / np.max(as_rgb) * 255).astype("uint8"))
+    plt.imshow((as_rgb / np.max(as_rgb) * 243).astype("uint8"))
     plt.show()
 
 
@@ -304,6 +305,23 @@ for filename in messenger_files:
     # plt.imshow(IMG_to_npy(f"MESSENGER/{filename}.IMG"))
     # plt.show()
 
+minnaert_messenger_channels = []
+for filename in messenger_files:
+    tag_data = parse_tag(f"MESSENGER/{filename}.xml", "Optical_Filter")[
+        "Optical_Filter"
+    ]
+    minnaert_messenger_channels.append(
+        Channel(
+            np.minimum(np.load(f"minnaert_ratio_npy/{filename}.npy"),np.percentile(np.load(f"minnaert_ratio_npy/{filename}.npy"),99)),
+            [
+                float(tag_data["center_filter_wavelength"])
+                - float(tag_data["bandwidth"]) / 2,
+                float(tag_data["center_filter_wavelength"])
+                + float(tag_data["bandwidth"]) / 2,
+            ],
+        )
+    )
+
 
 venus_express_channels = [
     Channel(
@@ -317,6 +335,21 @@ venus_express_channels = [
     Channel(
         load_IMG("VEX_2/V0942_0006_N12.IMG"),
         [935 - 70 / 2, 935 + 70 / 2],
+    ),
+]
+
+mariner_10_channels = [
+    Channel(
+        load_PNG("Mariner10/polished_UV.png"),
+        [330,390],
+    ),
+    Channel(
+        load_PNG("Mariner10/polished_blue.png"),
+        [410,530],
+    ),
+    Channel(
+        load_PNG("Mariner10/polished_orange.png"),
+        [540,630],
     ),
 ]
 
@@ -353,31 +386,40 @@ perezhoyos_interpolated = (
 )
 
 pellier_interpolated = (
-    all_spectra["christophe_pellier_reflectance"].get_reflectance().interp(lam)
+    all_spectra["christophe_pellier"].get_reflectance().interp(lam)
 )
 
 selsis_interpolated = all_spectra["Selsis et al., 2008"].get_reflectance().interp(lam)
 
 vpl_interpolated = all_spectra["VPL Venus Flux"].get_reflectance().interp(lam)
 
+vpl_interpolated = all_spectra["VPL Venus Flux"].get_reflectance().interp(lam)
+
+USGS_interpolated = all_spectra["messenger_filters"].get_reflectance().interp(lam)
+
+# all_spectra["messenger_filters"].get_reflectance().plot()
+
+all_spectra[f"average"] = Spectrum(lam, selsis_interpolated+pellier_interpolated+perezhoyos_interpolated, "Intensity", "Venus")
+
+average_interpolated = all_spectra["average"].get_intensity().interp(lam)
+
 venus_reflectance_spectra = {
-    "Kuiper": kuiper_interpolated,
     "PerezHoyos": perezhoyos_interpolated,
+    "average":average_interpolated,
+    "Kuiper": kuiper_interpolated,
     "Pellier": pellier_interpolated,
     "Selsis": selsis_interpolated,
     "VPL": vpl_interpolated,
+    "USGS": USGS_interpolated,
 }
 
-txtU_names = {
-    "Venus_Kuiper_1969b": "Venus_Kuiper1969.txtU",
-    "Venus_PerezHoyos2018": "Venus_PerezHoyos2018.txtU",
-    "christophe_pellier_reflectance": "Venus_Pellier2020.txtU",
+txt_names = {
+    "christophe_pellier": "Venus_Pellier2020.txtA",
     "Selsis et al., 2008": "Venus_Selsis2008.txtU",
-    "VPL Venus Flux": "Venus_VPL.txtU",
 }
-for all_spectra_key in txtU_names:
-    all_spectra[all_spectra_key].get_reflectance().save_txtU(
-        f"for_TCT/{txtU_names[all_spectra_key]}",peak_albedo=0.937528797
+for all_spectra_key in txt_names:
+    all_spectra[all_spectra_key].save_txt(
+        f"for_TCT/{txt_names[all_spectra_key]}",
     )
 
 for venus_reference_spectrum_key in venus_reflectance_spectra:
@@ -387,12 +429,75 @@ for venus_reference_spectrum_key in venus_reflectance_spectra:
         venus_reflectance_spectra[venus_reference_spectrum_key],
     ]
 
-    as_rgb = true_color(venus_express_channels, venus_reference_spectrum_set)
-    Image.fromarray(as_rgb).save(f"venus_vex_{venus_reference_spectrum_key}.png")
+    as_rgb = true_color(mariner_10_channels, venus_reference_spectrum_set)
+    Image.fromarray(as_rgb).save(f"venus_m10_{venus_reference_spectrum_key}.png")
+
+    as_rgb = true_color(minnaert_messenger_channels, venus_reference_spectrum_set)
+    Image.fromarray(as_rgb).save(f"venus_minnaert_messenger_{venus_reference_spectrum_key}.png")
 
     as_rgb = true_color(messenger_channels, venus_reference_spectrum_set)
     Image.fromarray(as_rgb).save(f"venus_messenger_{venus_reference_spectrum_key}.png")
 
+    as_rgb = true_color(venus_express_channels, venus_reference_spectrum_set)
+    Image.fromarray(as_rgb).save(f"venus_vex_{venus_reference_spectrum_key}.png")
+
+
+# D65 Test
+kuiper_interpolated = all_spectra["Venus_Kuiper_1969b"].get_intensity().interp(lam)
+
+perezhoyos_interpolated = (
+    all_spectra["Venus_PerezHoyos2018"].get_intensity().interp(lam)
+)
+
+pellier_interpolated = (
+    all_spectra["christophe_pellier"].get_intensity().interp(lam)
+)
+
+selsis_interpolated = all_spectra["Selsis et al., 2008"].get_intensity().interp(lam)
+
+vpl_interpolated = all_spectra["VPL Venus Flux"].get_intensity().interp(lam)
+
+vpl_interpolated = all_spectra["VPL Venus Flux"].get_intensity().interp(lam)
+
+USGS_interpolated = all_spectra["messenger_filters"].get_intensity().interp(lam)
+
+all_spectra["messenger_filters"].get_intensity().plot()
+
+all_spectra[f"average"] = Spectrum(lam, selsis_interpolated+pellier_interpolated+perezhoyos_interpolated, "Intensity", "Venus")
+
+average_interpolated = all_spectra["average"].get_intensity().interp(lam)
+
+venus_reflectance_spectra = {
+    "PerezHoyos": perezhoyos_interpolated,
+    "average":average_interpolated,
+    "Kuiper": kuiper_interpolated,
+    "Pellier": pellier_interpolated,
+    "Selsis": selsis_interpolated,
+    "VPL": vpl_interpolated,
+    "USGS": USGS_interpolated,
+}
+
+txt_names = {
+    "christophe_pellier": "Venus_Pellier2020.txtA",
+    "Selsis et al., 2008": "Venus_Selsis2008.txtU",
+}
+for all_spectra_key in txt_names:
+    all_spectra[all_spectra_key].save_txt(
+        f"for_TCT/{txt_names[all_spectra_key]}",
+    )
+
+for venus_reference_spectrum_key in venus_reflectance_spectra:
+    # this is a reflectance spectrum
+    venus_reference_spectrum_set = [
+        lam,
+        venus_reflectance_spectra[venus_reference_spectrum_key],
+    ]
+
+    as_rgb = true_color(venus_express_channels, venus_reference_spectrum_set,type="D65")
+    Image.fromarray(as_rgb).save(f"venus_vex_{venus_reference_spectrum_key}_D65.png")
+
+    as_rgb = true_color(messenger_channels, venus_reference_spectrum_set,type="D65")
+    Image.fromarray(as_rgb).save(f"venus_messenger_{venus_reference_spectrum_key}_D65.png")
 
 # Saturn Reflectance Spectrum
 
